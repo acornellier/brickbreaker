@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
-public class PaddleScript : MonoBehaviour
+public class Paddle : MonoBehaviour
 {
     public float speed;
     public new SpriteRenderer renderer;
@@ -30,5 +30,11 @@ public class PaddleScript : MonoBehaviour
             Mathf.Clamp(transform.position.x, -edge, edge),
             transform.position.y
         );
+    }
+
+    void OnTriggerEnter2D(Collider2D otherCollider)
+    {
+        GameManager.Instance.OnGainLife();
+        Destroy(otherCollider.gameObject);
     }
 }

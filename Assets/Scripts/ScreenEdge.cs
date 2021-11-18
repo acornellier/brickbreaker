@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class ScreenEdge : MonoBehaviour
 {
+    public float topOffset;
+
     void Awake()
     {
         AddCollider();
@@ -24,10 +26,10 @@ public class ScreenEdge : MonoBehaviour
 
         Vector2 bottomLeft = cam.ScreenToWorldPoint(new Vector3(0, 0, cam.nearClipPlane));
         Vector2 topLeft = cam.ScreenToWorldPoint(
-            new Vector3(0, cam.pixelHeight, cam.nearClipPlane)
+            new Vector3(topOffset, cam.pixelHeight, cam.nearClipPlane)
         );
         Vector2 topRight = cam.ScreenToWorldPoint(
-            new Vector3(cam.pixelWidth, cam.pixelHeight, cam.nearClipPlane)
+            new Vector3(cam.pixelWidth - topOffset, cam.pixelHeight, cam.nearClipPlane)
         );
         Vector2 bottomRight = cam.ScreenToWorldPoint(
             new Vector3(cam.pixelWidth, 0, cam.nearClipPlane)

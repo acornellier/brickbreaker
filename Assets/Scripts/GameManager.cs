@@ -38,6 +38,11 @@ public class GameManager : SingletonBehaviour<GameManager>
             OnGameOver();
     }
 
+    public void OnGainLife()
+    {
+        lives += 1;
+    }
+
     public void OnDeath()
     {
         lives = Mathf.Clamp(lives - 1, 0, int.MaxValue);

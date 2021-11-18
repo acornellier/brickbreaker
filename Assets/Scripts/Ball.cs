@@ -4,10 +4,6 @@ using UnityEngine;
 public class Ball : MonoBehaviour
 {
     public Transform paddleBallPosition;
-    public Transform brickExplosion;
-
-    public static event System.Action OnBrickDestroy;
-    public static event System.Action OnDeath;
 
     Rigidbody2D body;
 
@@ -32,21 +28,6 @@ public class Ball : MonoBehaviour
                 body.AddForce(Vector2.up * 500);
                 inPlay = true;
             }
-        }
-    }
-
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.transform.CompareTag("Brick"))
-        {
-            var explosion = Instantiate(
-                brickExplosion,
-                collision.transform.position,
-                collision.transform.rotation
-            );
-            Destroy(explosion.gameObject, 2.5f);
-            GameManager.Instance.OnBrickDestroy();
-            Destroy(collision.gameObject);
         }
     }
 
