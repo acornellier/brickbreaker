@@ -10,8 +10,13 @@ public class GameManager : SingletonBehaviour<GameManager>
 
     public int lives;
     public int score;
-
+    public int remainingBricks;
     public bool gameOver;
+
+    void Start()
+    {
+        remainingBricks = GameObject.FindGameObjectsWithTag("Brick").Length;
+    }
 
     void Update()
     {
@@ -28,6 +33,9 @@ public class GameManager : SingletonBehaviour<GameManager>
     public void OnBrickDestroy()
     {
         score += 1;
+        --remainingBricks;
+        if (remainingBricks <= 0)
+            OnGameOver();
     }
 
     public void OnDeath()
@@ -35,11 +43,14 @@ public class GameManager : SingletonBehaviour<GameManager>
         lives = Mathf.Clamp(lives - 1, 0, int.MaxValue);
 
         if (lives <= 0)
-        {
-            lives = 0;
-            gameOver = true;
-            gameOverPanel.SetActive(true);
-        }
+            OnGameOver();
+    }
+
+    void OnGameOver()
+    {
+        lives = 0;
+        gameOver = true;
+        gameOverPanel.SetActive(true);
     }
 
     public void PlayAgain() => SceneManager.LoadScene(SceneManager.GetActiveScene().name);
